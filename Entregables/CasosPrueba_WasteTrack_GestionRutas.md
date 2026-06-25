@@ -17,15 +17,16 @@
 | Módulo bajo prueba | Gestión de Rutas de Recolección — función `crearRuta()` |
 | Requisito funcional cubierto | RF-04 |
 | Reglas de negocio cubiertas | RN-01, RN-02, RN-03, RN-04, RN-05, RN-06 (6/6) |
-| Total de casos de prueba | **34** |
-| Casos de caja negra | 19 (BN-PE: 7, BN-VL: 8, BN-TD: 4) |
+| Total de casos de prueba | **40** |
+| Casos de caja negra | 25 (BN-PE: 13, BN-VL: 8, BN-TD: 4) |
 | Casos de caja blanca | 15 (CB-CS: 3, CB-CD: 6, CB-CC: 6) |
-| Cobertura de sentencias | **100 %** — líneas L01–L18 |
-| Cobertura de decisiones | **100 %** — D1–D7 con True y False |
-| Cobertura de condiciones | **100 %** — C1a, C1b, C2a, C2b, C3, C4, C6 |
-| Cobertura de clases (PE) | **100 %** — clases VN-01 a IN-13 |
-| Cobertura de límites (VL) | **100 %** — bordes inferior y superior de `nombre` y `capacidadKg` |
-| Estado general | Pendiente de ejecución (diseño completo) |
+| Cobertura teórica planificada de sentencias | **100 %** — líneas L01–L18 |
+| Cobertura teórica planificada de decisiones | **100 %** — D1–D7 con True y False |
+| Cobertura teórica planificada de condiciones | **100 %** — C1a, C1b, C2a, C2b, C3, C4, C6 |
+| Cobertura teórica planificada de clases (PE) | Clases representativas válidas e inválidas definidas |
+| Cobertura teórica planificada de límites (VL) | Bordes inferior y superior de `nombre` y `capacidadKg` |
+| Cobertura ejecutada | Pendiente |
+| Estado general | Diseño de pruebas completo; ejecución pendiente |
 
 ### Índice de casos de prueba
 
@@ -38,6 +39,12 @@
 | BN-PE-05 | Partición de Equivalencia | RN-02 | Capacidad = 750 (clase inválida IN-07) |
 | BN-PE-06 | Partición de Equivalencia | RN-03 | Hora inicio = hora fin (clase inválida IN-11) |
 | BN-PE-07 | Partición de Equivalencia | RN-04 | Lista de días vacía (clase inválida IN-13) |
+| BN-PE-08 | Partición de Equivalencia | RN-01 | Nombre vacío |
+| BN-PE-09 | Partición de Equivalencia | RN-02 | Capacidad no numérica |
+| BN-PE-10 | Partición de Equivalencia | RN-02 | Capacidad decimal cuando debe ser entera |
+| BN-PE-11 | Partición de Equivalencia | RN-03 | Hora de inicio posterior a hora de fin |
+| BN-PE-12 | Partición de Equivalencia | RN-04 | Lista de días nula |
+| BN-PE-13 | Partición de Equivalencia | RN-05 | Zona inexistente |
 | BN-VL-01 | Análisis de Valores Límite | RN-01 | Nombre 4 chars — justo por debajo del mínimo |
 | BN-VL-02 | Análisis de Valores Límite | RN-01 | Nombre 5 chars — mínimo permitido |
 | BN-VL-03 | Análisis de Valores Límite | RN-01 | Nombre 100 chars — máximo permitido |
@@ -108,6 +115,8 @@ El sistema impone validaciones de campo y prohíbe el solapamiento de horarios e
 ---
 
 ## 3. Pseudocódigo del módulo (base para pruebas de caja blanca)
+
+> **Nota sobre la caja blanca:** el siguiente pseudocódigo representa el diseño lógico previsto para la función `crearRuta()`. Los porcentajes presentados en este documento corresponden a cobertura teórica del modelo. Cuando la implementación definitiva esté disponible, la trazabilidad deberá actualizarse con la ruta del archivo, números de línea, commit analizado y reporte de cobertura generado por la herramienta de pruebas.
 
 El siguiente pseudocódigo representa la lógica de la función de creación de ruta en el backend Node.js + Express de WasteTrack. Las líneas están numeradas y las decisiones etiquetadas para referenciarlas en los casos de prueba.
 
@@ -335,6 +344,115 @@ Las pruebas de caja negra se diseñan desde la especificación funcional, sin co
 | **Datos de entrada** | nombre: "Ruta Sur" (válido) · capacidadKg: 200 · horaInicio: "06:00" · horaFin: "14:00" · dias: [] (clase IN-13) |
 | **Pasos** | 1. Autenticarse. 2. No seleccionar ningún día. 3. Confirmar. |
 | **Resultado esperado** | HTTP 400. `{ exito: false, errores: ["Debe seleccionar al menos un día"] }`. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+
+**BN-PE-08**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-08 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo de un nombre vacío |
+| **Trazabilidad** | RF-04 / RN-01 |
+| **Precondiciones** | Administrador autenticado. |
+| **Datos de entrada** | nombre: "" · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Dejar el nombre vacío. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo de la solicitud con mensaje de nombre inválido. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+**BN-PE-09**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-09 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo de una capacidad no numérica |
+| **Trazabilidad** | RF-04 / RN-02 |
+| **Precondiciones** | Administrador autenticado. |
+| **Datos de entrada** | capacidadKg: "abc" · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Ingresar "abc" como capacidad. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo por tipo de dato inválido. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+**BN-PE-10**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-10 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo de una capacidad decimal cuando la regla exige un entero |
+| **Trazabilidad** | RF-04 / RN-02 |
+| **Precondiciones** | Administrador autenticado. |
+| **Datos de entrada** | capacidadKg: 25.5 · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Ingresar capacidad 25.5. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo porque la capacidad debe ser un número entero. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+**BN-PE-11**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-11 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo cuando la hora inicial es posterior a la hora final |
+| **Trazabilidad** | RF-04 / RN-03 |
+| **Precondiciones** | Administrador autenticado. |
+| **Datos de entrada** | horaInicio: "14:00" · horaFin: "06:00" · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Ingresar el horario invertido. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo porque la hora inicial debe ser anterior a la hora final. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+**BN-PE-12**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-12 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo de una lista de días nula |
+| **Trazabilidad** | RF-04 / RN-04 |
+| **Precondiciones** | Administrador autenticado. |
+| **Datos de entrada** | dias: null · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Enviar `dias` como `null`. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo por ausencia de días de operación. Ruta NO registrada. |
+| **Resultado obtenido** | — |
+| **Estado** | Pendiente |
+
+---
+
+**BN-PE-13**
+
+| Campo | Detalle |
+|---|---|
+| **ID** | BN-PE-13 |
+| **Módulo** | Gestión de Rutas de Recolección – crear ruta |
+| **Tipo de prueba** | Caja Negra – Partición de Equivalencia |
+| **Objetivo** | Verificar el rechazo de una zona inexistente |
+| **Trazabilidad** | RF-04 / RN-05 |
+| **Precondiciones** | Administrador autenticado. La zona enviada no existe en el catálogo de zonas. |
+| **Datos de entrada** | zona: "Zona Inexistente" · demás campos válidos |
+| **Pasos** | 1. Autenticarse. 2. Ingresar una zona no registrada. 3. Confirmar. |
+| **Resultado esperado** | HTTP 400. Rechazo porque la zona no está registrada. Ruta NO registrada. |
 | **Resultado obtenido** | — |
 | **Estado** | Pendiente |
 
@@ -673,7 +791,7 @@ Las pruebas de caja blanca se diseñan con conocimiento de la estructura interna
 | **Resultado obtenido** | — |
 | **Estado** | Pendiente |
 
-**Cobertura de sentencias alcanzada con CB-CS-01 + CB-CS-02 + CB-CS-03: 100 % (líneas L01–L18)**
+**Cobertura teórica de sentencias prevista con CB-CS-01 + CB-CS-02 + CB-CS-03: 100 % (líneas L01–L18). Esta cobertura deberá confirmarse mediante la ejecución de las pruebas sobre la implementación definitiva.**
 
 ---
 
@@ -806,7 +924,7 @@ Las pruebas de caja blanca se diseñan con conocimiento de la estructura interna
 | **Resultado obtenido** | — |
 | **Estado** | Pendiente |
 
-**Cobertura de decisiones alcanzada: 100 % — D1–D7 con valor True Y False**
+**Cobertura teórica de decisiones prevista: 100 % — D1–D7 con valor True y False. El porcentaje real deberá confirmarse mediante ejecución sobre el código fuente.**
 
 ---
 
@@ -940,7 +1058,7 @@ Las pruebas de caja blanca se diseñan con conocimiento de la estructura interna
 | **Resultado obtenido** | — |
 | **Estado** | Pendiente |
 
-**Cobertura de condiciones alcanzada: 100 % — C1a, C1b, C2a, C2b, C3, C4, C6 con True Y False**
+**Cobertura teórica de condiciones prevista: 100 % — C1a, C1b, C2a, C2b, C3, C4 y C6 con True y False. La cobertura ejecutada permanece pendiente.**
 
 ---
 
@@ -957,6 +1075,12 @@ Las pruebas de caja blanca se diseñan con conocimiento de la estructura interna
 | BN-PE-05 | Caja negra | Partición equivalencia | RF-04 | RN-02 | Pendiente |
 | BN-PE-06 | Caja negra | Partición equivalencia | RF-04 | RN-03 | Pendiente |
 | BN-PE-07 | Caja negra | Partición equivalencia | RF-04 | RN-04 | Pendiente |
+| BN-PE-08 | Caja negra | Partición equivalencia | RF-04 | RN-01 | Pendiente |
+| BN-PE-09 | Caja negra | Partición equivalencia | RF-04 | RN-02 | Pendiente |
+| BN-PE-10 | Caja negra | Partición equivalencia | RF-04 | RN-02 | Pendiente |
+| BN-PE-11 | Caja negra | Partición equivalencia | RF-04 | RN-03 | Pendiente |
+| BN-PE-12 | Caja negra | Partición equivalencia | RF-04 | RN-04 | Pendiente |
+| BN-PE-13 | Caja negra | Partición equivalencia | RF-04 | RN-05 | Pendiente |
 | BN-VL-01 | Caja negra | Análisis valores límite | RF-04 | RN-01 | Pendiente |
 | BN-VL-02 | Caja negra | Análisis valores límite | RF-04 | RN-01 | Pendiente |
 | BN-VL-03 | Caja negra | Análisis valores límite | RF-04 | RN-01 | Pendiente |
@@ -987,15 +1111,15 @@ Las pruebas de caja blanca se diseñan con conocimiento de la estructura interna
 
 ### 6.2 Resumen de cobertura por técnica
 
-| Tipo | Técnica | Casos | Cobertura alcanzada |
+| Tipo | Técnica | Casos | Cobertura planificada |
 |---|---|---|---|
-| Caja Negra | Partición de Equivalencia | 7 | Todas las clases válidas e inválidas de los 4 campos validados |
+| Caja Negra | Partición de Equivalencia | 13 | Clases representativas válidas e inválidas definidas para los campos y reglas seleccionados |
 | Caja Negra | Análisis de Valores Límite | 8 | Límites inferior y superior de `nombre` (longitud) y `capacidadKg` |
 | Caja Negra | Tabla de Decisión | 4 | 4 reglas de combinación zona/día/horario (RN-05) |
 | Caja Blanca | Cobertura de Sentencias | 3 | 100 % — líneas L01–L18 cubiertas |
 | Caja Blanca | Cobertura de Decisiones | 6 | 100 % — D1–D7 con True Y False |
 | Caja Blanca | Cobertura de Condiciones | 6 | 100 % — C1a, C1b, C2a, C2b, C3, C4, C6 con True Y False |
-| **Total** | | **34 casos** | |
+| **Total** | | **40 casos** | |
 
 ---
 
