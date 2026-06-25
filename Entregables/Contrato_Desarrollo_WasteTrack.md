@@ -9,6 +9,8 @@
 
 ---
 
+> **Aviso académico:** Este documento fue elaborado exclusivamente con fines académicos para la asignatura Calidad de Software. No constituye un contrato real ni acredita una relación jurídica con ninguna entidad pública o privada. Los nombres, identificaciones, cargos, direcciones, correos, valores y demás datos contractuales incluidos son ficticios, referenciales o simulados.
+
 ## Tabla de contenidos
 
 | Sección | Título |
@@ -101,7 +103,8 @@ El Proveedor realizará las siguientes actividades y entregará los siguientes m
 | Estadísticas en tiempo real | 13 SP | Dashboard operacional para administradores |
 | Panel de análisis histórico | 21 SP | Panel analítico avanzado para autoridades locales |
 | API REST base + autenticación JWT | 13 SP | Infraestructura de backend y seguridad |
-| **Total** | **107 SP** | Equivalente a 169 Puntos de Función Ajustados |
+| Integración, despliegue y estabilización | 8 SP | Configuración, integración técnica, despliegue y estabilización del producto |
+| **Total** | **115 SP** | Equivalente a la línea base aprobada del proyecto y a 169 Puntos de Función Ajustados |
 
 ### 2.3 Actividades excluidas del alcance
 
@@ -123,10 +126,10 @@ El Proveedor entregará los siguientes productos conforme al calendario establec
 | E3 | Release Alfa | Backend funcional + módulo ciudadanos desplegado en ambiente staging | 31 de marzo de 2026 | Supera suite de pruebas de integración |
 | E4 | Release Beta | Sistema completo con todos los módulos en ambiente staging | 30 de abril de 2026 | Supera pruebas funcionales y de usabilidad |
 | E5 | Informe de pruebas | Resultados de pruebas unitarias, integración, rendimiento y usuario | 31 de mayo de 2026 | Entregado en formato .pdf o .md |
-| E6 | Sistema desplegado | Aplicación en producción en ciudad piloto, con datos reales | 30 de junio de 2026 | Supera todos los criterios de aceptación (Cláusula 6) |
+| E6 | Sistema desplegado | Aplicación en producción en ciudad piloto, con datos reales | 30 de junio de 2026 | Supera todos los criterios de aceptación (Cláusula 7) |
 | E7 | Documentación técnica final | Manual de usuario, manual de administrador, documento de arquitectura y PMP actualizado | 30 de junio de 2026 | Entregado junto con E6 |
 
-El Proveedor notificará al Cliente con al menos **5 días hábiles de anticipación** ante la eventualidad de un retraso justificado. Los retrasos no notificados activarán las penalidades establecidas en la Cláusula 11.
+El Proveedor notificará al Cliente con al menos **5 días hábiles de anticipación** ante la eventualidad de un retraso justificado. Los retrasos no notificados activarán las penalidades establecidas en la Cláusula 12.
 
 ---
 
@@ -137,6 +140,8 @@ El Proveedor notificará al Cliente con al menos **5 días hábiles de anticipac
 El valor total acordado por la prestación de los servicios descritos en este contrato es de **COP $87.000.000** (ochenta y siete millones de pesos colombianos), equivalentes aproximadamente a **USD $21.750** a la tasa de cambio de referencia del día de la firma, conforme al esfuerzo estimado de **2.175 horas** a una tarifa de $40.000 COP/hora.
 
 > *Nota de cálculo:* La estimación de esfuerzo fue derivada mediante Análisis de Puntos de Función (FPA, resultado: 2.028 h) y Puntos de Caso de Uso (UCP, resultado: 2.322 h), con un promedio ponderado de 2.175 h (diferencia < 15 %, rango de convergencia aceptable). El presupuesto adicional de infraestructura cloud es asumido en su totalidad por el Proveedor y está incluido en el valor total.
+
+> **Aclaración sobre la naturaleza académica y económica:** el valor contractual de COP $87.000.000 representa una valoración comercial simulada del esfuerzo profesional correspondiente a 2.175 horas de trabajo, calculadas con una tarifa referencial de COP $40.000 por hora. El presupuesto operativo académico indicado en el Plan de Gestión del Proyecto corresponde únicamente a desembolsos previstos para infraestructura, servicios cloud, herramientas y otros recursos del ejercicio universitario; no incluye el valor completo de la mano de obra, que se registra como costo de oportunidad.
 
 ### 4.2 Calendario de pagos
 
@@ -177,9 +182,9 @@ El Cliente se compromete a:
 
 El Proveedor se compromete a:
 
-1. **Ejecutar conforme al plan:** Desarrollar el sistema WasteTrack según el Plan de Gestión de Proyecto (PMP-WT-2025-v1.0) y las especificaciones del Anexo 1.
+1. **Ejecutar conforme al plan:** Desarrollar el sistema WasteTrack según el Plan de Gestión de Proyecto (PMP-WT-2025-v2.0) y las especificaciones del Anexo 1.
 2. **Cumplir los plazos:** Entregar cada hito en las fechas establecidas en la Cláusula 3, notificando con anticipación cualquier desviación justificada.
-3. **Mantener calidad:** Asegurar que el sistema cumpla los criterios de aceptación definidos en la Cláusula 6 antes de cada entrega formal.
+3. **Mantener calidad:** Asegurar que el sistema cumpla los criterios de aceptación definidos en la Cláusula 7 antes de cada entrega formal.
 4. **Reportar avances:** Presentar informes de progreso quincenales al representante técnico del Cliente, incluyendo métricas de velocidad del equipo, porcentaje de avance por módulo y estado de riesgos.
 5. **Gestionar defectos:** Registrar, priorizar y corregir los defectos identificados durante las pruebas. Los defectos críticos (impiden funcionalidad principal) deben corregirse en un plazo máximo de **5 días hábiles** tras su reporte.
 6. **Aplicar control de calidad interno:** Ejecutar revisiones de código (Pull Requests con mínimo 1 aprobador), análisis estático (ESLint + Prettier), y pruebas automatizadas antes de cada entrega.
@@ -331,6 +336,24 @@ A partir del cuarto mes, el Cliente podrá contratar un plan de soporte extendid
 
 ---
 
+
+## Cláusula 11A – Protección y tratamiento de datos personales
+
+Las partes se comprometen a tratar los datos personales recolectados, almacenados o procesados por WasteTrack únicamente para las finalidades autorizadas dentro del proyecto.
+
+El Proveedor deberá:
+
+1. Implementar controles de acceso basados en roles.
+2. Aplicar cifrado a las comunicaciones y a la información sensible.
+3. Evitar el uso de datos personales para finalidades distintas de las autorizadas.
+4. Informar al Cliente sobre incidentes de seguridad que comprometan información.
+5. Eliminar o devolver los datos al finalizar el contrato, de acuerdo con las instrucciones del Cliente.
+6. Garantizar que el personal y los posibles subcontratistas mantengan la confidencialidad de la información.
+
+El Cliente será responsable de definir las finalidades autorizadas del tratamiento y de proporcionar los avisos y autorizaciones correspondientes.
+
+---
+
 ## Cláusula 12 – Penalidades por incumplimiento
 
 ### 12.1 Penalidades por retraso del Proveedor
@@ -417,7 +440,7 @@ Los siguientes documentos forman parte integral de este contrato:
 | Anexo 1 | Especificaciones Técnicas y Requisitos del Sistema WasteTrack |
 | Anexo 2 | Plan de Pruebas de Aceptación (Casos de Prueba – Módulo Gestión de Rutas) |
 | Anexo 3 | Inventario de Dependencias de Terceros y sus licencias |
-| Anexo 4 | Plan de Gestión de Proyecto (PMP-WT-2025-v1.0) |
+| Anexo 4 | Plan de Gestión de Proyecto (PMP-WT-2025-v2.0) |
 
 En caso de conflicto entre el cuerpo del contrato y sus anexos, prevalece el cuerpo del contrato.
 
