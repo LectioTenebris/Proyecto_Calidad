@@ -438,7 +438,15 @@ E_FPA = 169 × 12 = 2.028 horas
 Meses-persona = E / jornada mensual = 2.028 / 160 = 12,68 meses-persona
 ```
 
-Con la composición de equipo de la Sección 5.3, la capacidad total disponible es ≈ 16,5 personas-mes × 160 h = **2.640 h**. La utilización resultante es 2.028 / 2.640 = **77 %**, dejando un buffer del 23 % para gestión de cambios e imprevistos. El cronograma de 6 meses es técnicamente viable.
+Con la composición del equipo definida en la Sección 5.3, la capacidad total disponible es de aproximadamente 16,5 personas-mes × 160 horas, equivalente a **2.640 horas**.
+
+Tomando como línea base definitiva el esfuerzo estimado de **2.175 horas**, la utilización proyectada del equipo es:
+
+```
+Utilización = 2.175 / 2.640 × 100 = 82,39 %
+```
+
+Por tanto, el proyecto utiliza aproximadamente el **82,4 %** de la capacidad disponible y conserva un margen de gestión del **17,6 %** para imprevistos, correcciones y cambios controlados de alcance. Bajo estas condiciones, el cronograma de seis meses se considera viable.
 
 ---
 
@@ -560,8 +568,8 @@ La convergencia entre métodos (< 15 % de diferencia) valida la estimación. Se 
 | Puntos de Caso de Uso ajustados (UCP) | 109 UCP |
 | Esfuerzo total estimado | 2.175 h |
 | Capacidad disponible del equipo | 2.640 h (6 meses) |
-| Utilización del equipo | 77 % |
-| Buffer de gestión | 23 % |
+| Utilización del equipo | 82,4 % |
+| Margen de gestión | 17,6 % |
 | Cronograma resultante | 6 meses (viable) |
 
 ---
@@ -585,6 +593,12 @@ Los Story Points se usan para la planificación táctica de sprints, alineados c
 
 Velocidad: **20 SP/sprint** × 6 sprints de desarrollo = 120 SP (buffer de 5 SP para correcciones).
 
+##### Aclaración sobre la línea base de Story Points
+
+La línea base total del proyecto es de **115 Story Points**. Esta cifra incluye **107 Story Points** asociados directamente a funcionalidades del producto y **8 Story Points** correspondientes a integración, configuración técnica, despliegue y estabilización.
+
+Todos los documentos contractuales y de planificación deberán utilizar esta misma línea base.
+
 ### 5.3 Plan de personal
 
 | Rol | # personas | Dedicación | Meses |
@@ -595,6 +609,18 @@ Velocidad: **20 SP/sprint** × 6 sprints de desarrollo = 120 SP (buffer de 5 SP 
 | Desarrollador Full Stack | 1 | 100 % | 2–5 |
 | Diseñador UX/UI | 1 | 50 % | 1–3 |
 | QA / Analista de pruebas | 1 | 50 % | 4–5; 100 % mes 5 |
+
+#### Capacidad estimada por rol
+
+| Rol | Dedicación promedio | Periodo de participación | Capacidad estimada |
+|-----|---------------------|--------------------------|--------------------|
+| Jefe de proyecto | 25 % | 6 meses | 240 h |
+| Diseñador UX/UI | 50 % | 3 meses | 240 h |
+| Desarrollador frontend | 100 % | 4 meses | 640 h |
+| Desarrollador backend | 100 % | 4 meses | 640 h |
+| Desarrollador full stack | 100 % | 4 meses | 640 h |
+| Analista QA | Variable | 3 meses | 240 h |
+| **Capacidad total estimada** | — | — | **2.640 h** |
 
 ### 5.4 Plan de adquisición de recursos
 
@@ -682,13 +708,16 @@ WasteTrack
 
 El presupuesto monetario cubre únicamente costos de infraestructura y herramientas. El esfuerzo humano (2.175 h) está valorizado en créditos académicos; su costo de oportunidad al tarifa junior de referencia (≈ $8 USD/h) equivaldría a **$17.400 USD**, reafirmando que el proyecto es académicamente viable solo en este contexto.
 
-| Fase | % del presupuesto | USD estimado | Horas asociadas |
-|------|-------------------|--------------|-----------------|
-| Investigación y diseño (análisis + diseño) | 15 % | $98 | 812 h (FPA: 40 %) |
-| Desarrollo | 30 % | $195 | 710 h (FPA: 35 %) |
-| Infraestructura cloud (meses 3–6) | 45 % | $293 | — (costo fijo) |
-| Pruebas y despliegue | 10 % | $65 | 507 h (FPA: 25 %) |
-| **Total** | **100 %** | **$650** | **2.029 h** |
+| Fase | Distribución del esfuerzo | Horas asociadas | Presupuesto operativo |
+|------|---------------------------|-----------------|------------------------|
+| Investigación, análisis y diseño | 40 % | 870 h | $98 USD |
+| Desarrollo e integración | 35 % | 761 h | $195 USD |
+| Infraestructura cloud, meses 3–6 | No aplica al esfuerzo humano | — | $293 USD |
+| Pruebas, despliegue y cierre | 25 % | 544 h | $65 USD |
+| **Total de esfuerzo humano** | **100 %** | **2.175 h** | — |
+| **Total de presupuesto operativo** | — | — | **$650 USD** |
+
+Las horas corresponden al esfuerzo humano estimado. El presupuesto operativo cubre principalmente infraestructura, herramientas y servicios del ejercicio académico, por lo que su distribución porcentual no debe interpretarse como una distribución proporcional de las horas de trabajo.
 
 **Reserva de contingencia:** 10 % del presupuesto = $65 USD (incluida en el total de la Sección 6.4).
 
@@ -725,7 +754,28 @@ La siguiente tabla describe las relaciones de precedencia entre las actividades 
 
 **Camino crítico:** A01 → A02 → A03 → A04 → A08 → A09 → A10 → A12 → A13 → A14 → A16 → A19 → A20 → A21
 
-Cualquier retraso en las actividades del camino crítico afecta directamente la fecha de entrega final (semana 24).
+#### Verificación del camino crítico
+
+El camino crítico fue determinado a partir de las dependencias y duraciones planificadas. Las actividades con holgura total igual a cero se consideran críticas.
+
+| ID | Actividad | Duración estimada | Predecesora | Holgura | Estado |
+|----|-----------|-------------------|-------------|---------|--------|
+| A01 | Kick-off y acta de inicio | 1 semana | — | 0 | Crítica |
+| A02 | Levantamiento de requisitos con stakeholders | 2 semanas | A01 | 0 | Crítica |
+| A03 | Documentación SRS | 1 semana | A02 | 0 | Crítica |
+| A04 | Diseño de arquitectura del sistema | 2 semanas | A03 | 0 | Crítica |
+| A08 | Configuración entorno y CI/CD | 3 semanas | A04 | 0 | Crítica |
+| A09 | Módulo de autenticación y perfiles | 2 semanas | A05, A08 | 0 | Crítica |
+| A10 | Módulo ciudadanos (reportes + notificaciones) | 3 semanas | A09 | 0 | Crítica |
+| A12 | Módulo administrador (rutas + estadísticas) | 2 semanas | A10 | 0 | Crítica |
+| A13 | Módulo autoridades (panel + análisis) | 2 semanas | A12 | 0 | Crítica |
+| A14 | Integración frontend-backend | 2 semanas | A10, A11, A12, A13 | 0 | Crítica |
+| A16 | Pruebas de integración | 1 semana | A14 | 0 | Crítica |
+| A19 | Corrección de defectos críticos | 1 semana | A16, A17, A18 | 0 | Crítica |
+| A20 | Despliegue en producción | 1 semana | A19 | 0 | Crítica |
+| A21 | Piloto ciudad (E6) | 1 semana | A20 | 0 | Crítica |
+
+Cualquier retraso en una actividad con holgura igual a cero genera un retraso equivalente en la fecha final del proyecto, salvo que se apliquen medidas de compresión del cronograma.
 
 ---
 
